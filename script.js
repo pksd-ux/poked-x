@@ -1,49 +1,88 @@
+const ApiBase = 'https://pokeapi.co/api/v2/pokemon/' ;
+
+
 let formulario = document.getElementById('formularioPesquisa');
+
 formulario.addEventListener('submit', async function (evento ) {
 
     evento.preventDefault();
     
-    let NomePokemon = document.getElementById('barraPesquisa').value.toLowerCase()
+    let NomePokemon = document.getElementById('barraPesquisa').value.toLowerCase() ;
    
+    let linkApiName = ApiBase + NomePokemon;
 
-    let linkApiname = 'https://pokeapi.co/api/v2/pokemon/' + NomePokemon;
-
-    let resposta = await fetch(linkApiname);
+    let resposta = await fetch(linkApiName);
 
     let dados = await resposta.json();
 
     console.log(dados);    
 
-    document.getElementById('nomePoke').innerHTML = dados.name;
+    // gerar nome
+    const nomePoke = document.getElementById('nomePoke');
 
-    document.getElementById('imagePoke').src = dados.sprites.front_default;
+    nomePoke.textContent = "";
+
+    let nomePoke_Api = document.createElement('h3');
+
+    nomePoke_Api.textContent = `${dados.name}`;
+
+
+    nomePoke.appendChild(nomePoke_Api);
+
+
+    // gerar imagem
+    const imagePoke = document.getElementById('imagePoke');
+
+    imagePoke.innerHTML = "";
+
+
+    let imagePoke_Api = document.createElement('img');
+
+
+    imagePoke_Api.src = `${dados.sprites.front_default}`;
+
+
+    imagePoke.appendChild(imagePoke_Api);
+
+    // gerar status
+    const lista_Stats = document.getElementById('PokeInfo');
+
+    lista_Stats.innerHTML = "";
+
+    for (let i = 0;  i < dados.stats.length ; i++) {
+
+        let pegar_stats = dados.stats[i];
+
+        let linha_Stats = document.createElement("p");
+
+        linha_Stats.textContent = `${pegar_stats.stat.name}: ${pegar_stats.base_stat}`;
+
+        lista_Stats.appendChild(linha_Stats);
+        
+        
+    }
+
+    
 
     
 
 });
 
-async function carregarImgs() {
-    for (let i = 1; i < 41 ; i++) {
+let galeria = document.getElementById('galery');
+galeria.addEventListener('submit', async function (showM) {
+
+    showM.preventDefault();
+
+    
+})
+
+
+
+
        
-        let apilink = 'https://pokeapi.co/api/v2/pokemon/' + i;
-
-        let resposta = await fetch(apilink);
-
-        let dados = await resposta.json();
-
-        const imagemBase = document.createElement('img');
-
-        imagemBase.src = dados.sprites.front_default;
-        imagemBase.alt = "Imagem do " + dados.name;
-        
-        
-        
-        const local = document.getElementById('localImagens');
-        local.appendChild(imagemBase);
-        
-    }
+    
    
     
-}
+
 
     carregarImgs();
