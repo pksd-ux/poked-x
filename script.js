@@ -58,7 +58,7 @@ formulario.addEventListener('submit', async function (evento ) {
 
     imagePoke.appendChild(imagePoke_Api);
 
-    // gerar status
+    // gerar informações
     const lista_informacoes = document.getElementById('PokeInfo');
 
     lista_informacoes.innerHTML = "";
