@@ -29,6 +29,20 @@ formulario.addEventListener('submit', async function (evento ) {
 
     nomePoke.appendChild(nomePoke_Api);
 
+    let tipo_pokemon = dados.types.map(tipo => tipo.type.name).join(" -- ");
+    let habilidade_pokemon = dados.abilities.map(habilidade => habilidade.ability.name).join(" -- ");
+   const informações_pokemon = [
+
+    {chave: "nome:", valor: dados.name},
+    {chave: "ID:", valor: dados.id},
+    {chave: "tipo_elemental:", valor: tipo_pokemon},
+    {chave: "altura:", valor: (dados.height / 10) + " m"} ,
+    {chave: "peso:", valor: dados.weight / 10 + "Kg"} ,
+    {chave: "habilidades:", valor: habilidade_pokemon}
+
+
+   ] 
+
 
     // gerar imagem
     const imagePoke = document.getElementById('imagePoke');
@@ -45,19 +59,20 @@ formulario.addEventListener('submit', async function (evento ) {
     imagePoke.appendChild(imagePoke_Api);
 
     // gerar status
-    const lista_Stats = document.getElementById('PokeInfo');
+    const lista_informacoes = document.getElementById('PokeInfo');
 
-    lista_Stats.innerHTML = "";
+    lista_informacoes.innerHTML = "";
 
-    for (let i = 0;  i < dados.stats.length ; i++) {
+    for (let i = 0;  i < informações_pokemon.length ; i++) {
 
-        let pegar_stats = dados.stats[i];
+        let info_create = document.createElement('li')
 
-        let linha_Stats = document.createElement("p");
+        info_create.innerHTML = `${informações_pokemon[i].chave} ${informações_pokemon[i].valor}`
 
-        linha_Stats.textContent = `${pegar_stats.stat.name}: ${pegar_stats.base_stat}`;
+        lista_informacoes.appendChild(info_create);
 
-        lista_Stats.appendChild(linha_Stats);
+
+
         
         
     }
