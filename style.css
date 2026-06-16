@@ -39,3 +39,9 @@ img {
 #titulo{
     text-align: center;
 }
+#localGaleria {
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
