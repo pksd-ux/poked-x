@@ -1,6 +1,7 @@
 const ApiBase = 'https://pokeapi.co/api/v2/pokemon/' ;
 
 
+
 let formulario = document.getElementById('formularioPesquisa');
 
 formulario.addEventListener('submit', async function (evento ) {
@@ -40,37 +41,40 @@ let limiteAtual = 30;
 let offsetAtual = 0;
 async function carregar_galeria() {
     const linkGaleria = `https://pokeapi.co/api/v2/pokemon?limit=${limiteAtual}&offset=${offsetAtual}`;
-    let respostaGaleria = await fetch(linkGaleria);
-    let DadosGaleria = await respostaGaleria.json();
-    let listaPokemons = DadosGaleria.results;
+  
     const localGaleria = document.getElementById('localGaleria');
 
-   
+    const buscarPokemon = await fetch(linkGaleria);
+    const dadosPokemons = await buscarPokemon.json();
+    const listaPokemons = dadosPokemons.results;
+    const dadosBrutos = listaPokemons.map(pokemon=> fetch(pokemon.url));
+    const promesasDosDados = await Promise.all(dadosBrutos);   
+    const dadosPromesas = promesasDosDados.map(resultados => resultados.json());
+    const dadosFinais = await Promise.all(dadosPromesas);
+    console.log(dadosFinais);
 
-    for (let i = 0; i < listaPokemons.length; i++) {
+  
 
-        let pokemonsGaleria = listaPokemons[i];
-        let resposta_detalhes = await fetch(pokemonsGaleria.url);
-        let dados_completos = await resposta_detalhes.json();
+    fazer_catão(dadosFinais,localGaleria);
 
-        fazer_catão(dados_completos,localGaleria);
-       
-        
-    }
+ 
     
 }
 
 
 function fazer_catão(dados,localNaTela){
 
+    dados.forEach(pokemon => {
+
+        
     let cartao = document.createElement('div');
     cartao.className = 'cartaDoPokemon';
 
     let nome = document.createElement('h3');
-    nome.textContent = dados.name;
+    nome.textContent = pokemon.name;
 
     let imagem = document.createElement('img');
-    imagem.src = dados.sprites.front_default;
+    imagem.src = pokemon.sprites.front_default;
     imagem.alt = "imagem do pokemon " + nome;
 
     
@@ -79,13 +83,17 @@ function fazer_catão(dados,localNaTela){
     btnVerMais.type = 'button';
     btnVerMais.textContent = 'ver informações';
     btnVerMais.addEventListener('click', function(){
-        exibirNoTopo(dados);
+        exibirNoTopo(pokemon);
     });
 
     cartao.appendChild(nome);
     cartao.appendChild(imagem);
     cartao.appendChild(btnVerMais);
     localNaTela.appendChild(cartao);
+
+        console.log();
+    });
+
 }
 carregar_galeria();
 
@@ -100,7 +108,7 @@ botaoCarregarMais.addEventListener('click',function(){
 
 
 });
-function exibirNoTopo(dados){
+function exibirNoTopo(pokemon){
      // gerar nome
     const nomePoke = document.getElementById('nomePoke');
 
@@ -108,20 +116,20 @@ function exibirNoTopo(dados){
 
     let nomePoke_Api = document.createElement('h3');
 
-    nomePoke_Api.textContent = `${dados.name}`;
+    nomePoke_Api.textContent = `${pokemon.name}`;
 
 
     nomePoke.appendChild(nomePoke_Api);
 
-    let tipo_pokemon = dados.types.map(tipo => tipo.type.name).join(" -- ");
-    let habilidade_pokemon = dados.abilities.map(habilidade => habilidade.ability.name).join(" -- ");
+    let tipo_pokemon = pokemon.types.map(tipo => tipo.type.name).join(" -- ");
+    let habilidade_pokemon = pokemon.abilities.map(habilidade => habilidade.ability.name).join(" -- ");
    const informações_pokemon = [
 
-    {chave: "nome:", valor: dados.name},
-    {chave: "ID:", valor: dados.id},
+    {chave: "nome:", valor: pokemon.name},
+    {chave: "ID:", valor: pokemon.id},
     {chave: "tipo_elemental:", valor: tipo_pokemon},
-    {chave: "altura:", valor: (dados.height / 10) + " m"} ,
-    {chave: "peso:", valor: dados.weight / 10 + "Kg"} ,
+    {chave: "altura:", valor: (pokemon.height / 10) + " m"} ,
+    {chave: "peso:", valor: pokemon.weight / 10 + "Kg"} ,
     {chave: "habilidades:", valor: habilidade_pokemon}
 
 
@@ -137,7 +145,7 @@ function exibirNoTopo(dados){
     let imagePoke_Api = document.createElement('img');
 
 
-    imagePoke_Api.src = `${dados.sprites.front_default}`;
+    imagePoke_Api.src = `${pokemon.sprites.front_default}`;
 
     imagePoke_Api.alt = "imagem do pokemon " + nomePoke
 
