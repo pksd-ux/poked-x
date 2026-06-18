@@ -1,53 +1,275 @@
-button {
-    border-radius: 5px;
-    border-color: black;
-    background-color: rgb(240, 225, 175);
-}
-main{
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    flex-direction: column;
-   
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    border: 0;
-    padding-top: 3.5rem;
-    padding-left: 3.5rem;
-    padding-right: 3.5;
+    font-family: 'Trebuchet MS', sans-serif;
     min-height: 100vh;
-    box-sizing: border-box;
-     background-color: #dbe1e8;
+    background: linear-gradient(
+        180deg,
+        #ff1c1c 0%,
+        #ff1c1c 35%,
+        #f5f5f5 35%,
+        #f5f5f5 100%
+    );
+    padding: 20px;
 }
-#back{
 
-    
-    height: 100%;
-    width: 98%;     
-    max-width: 1000px;      
-    background-color: #ffffff;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 3rem 5%;
-    margin: auto 40px;
+
+#back {
+    max-width: 1200px;
+    margin: auto;
 }
-#titulo{
+
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#titulo {
+    font-size: 3.5rem;
+    color: #ffcb05;
+    text-shadow:
+        3px 3px 0 #2a75bb,
+        -3px -3px 0 #2a75bb,
+        3px -3px 0 #2a75bb,
+        -3px 3px 0 #2a75bb;
+    margin-bottom: 25px;
+}
+
+
+#formularioPesquisa {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    padding: 20px;
+    border-radius: 20px;
+    border: 4px solid #2a75bb;
+    box-shadow: 0 5px 15px rgba(0,0,0,.2);
+}
+
+#formularioPesquisa label {
+    width: 100%;
+    font-weight: bold;
+    color: #2a75bb;
+    font-size: 1.1rem;
+}
+
+#barraPesquisa {
+    width: 300px;
+    max-width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #2a75bb;
+    font-size: 1rem;
+}
+
+#barraPesquisa:focus {
+    outline: none;
+    border-color: #ffcb05;
+    box-shadow: 0 0 8px #ffcb05;
+}
+
+#formularioPesquisa button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #ffcb05;
+    color: #2a75bb;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+#formularioPesquisa button:hover {
+    background: #f0b700;
+    transform: scale(1.05);
+}
+
+
+#localImagens {
+    background: white;
+    margin-top: 30px;
+    border-radius: 25px;
+    padding: 25px;
+    border: 5px solid #2a75bb;
+    box-shadow: 0 8px 20px rgba(0,0,0,.2);
     text-align: center;
 }
-#localGaleria {
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+
+#nomePoke h3 {
+    font-size: 2rem;
+    color: #2a75bb;
+    text-transform: capitalize;
+    margin-bottom: 15px;
 }
-#btnMostrar_info{
+
+
+#imagePoke img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    transition: .3s;
+}
+
+#imagePoke img:hover {
+    transform: scale(1.1);
+}
+
+
+#btnMostrar_info {
     display: none;
+    margin: 20px auto;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 10px;
+    background: #2a75bb;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .3s;
 }
-.cartaDoPokemon  {
 
-     background:linear-gradient(
-        135deg,
-        #ffcb05,
-        #ffde59
-     );
-     background-color:#ffcb05 ;
-     padding: 0.2rem;
+#btnMostrar_info:hover {
+    background: #1d5d99;
+}
+
+
+#PokeInfo {
+    list-style: none;
+    display: none;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+#PokeInfo li {
+    background: #f2f2f2;
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 10px;
+    border-left: 6px solid #ffcb05;
+    text-align: left;
+    font-weight: 600;
+}
+
+
+#galery {
+    margin-top: 40px;
+}
+
+#localGaleria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+
+.cartaDoPokemon {
+    background: white;
+    border: 4px solid #2a75bb;
+    border-radius: 20px;
+    padding: 15px;
+    text-align: center;
+    transition: .3s;
+    box-shadow: 0 5px 12px rgba(0,0,0,.15);
+}
+
+.cartaDoPokemon:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 18px rgba(0,0,0,.25);
+}
+
+.cartaDoPokemon h3 {
+    color: #2a75bb;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.cartaDoPokemon img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    image-rendering: pixelated;
+}
+
+.cartaDoPokemon button {
+    margin-top: 12px;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #ffcb05;
+    color: #2a75bb;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.cartaDoPokemon button:hover {
+    background: #f0b700;
+}
+
+
+#btnParaCarregar {
+    display: block;
+    margin: 30px auto;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    background: #ff1c1c;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+#btnParaCarregar:hover {
+    background: #d91313;
+    transform: scale(1.05);
+}
+
+
+@media (max-width: 768px) {
+
+    #titulo {
+        font-size: 2.5rem;
+    }
+
+    #imagePoke img {
+        width: 180px;
+        height: 180px;
+    }
+
+    #formularioPesquisa {
+        flex-direction: column;
+    }
+
+    #barraPesquisa {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    #titulo {
+        font-size: 2rem;
+    }
+
+    .cartaDoPokemon {
+        padding: 12px;
+    }
+
+    .cartaDoPokemon img {
+        width: 100px;
+        height: 100px;
+    }
 }

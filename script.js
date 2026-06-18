@@ -102,7 +102,7 @@ botaoCarregarMais.addEventListener('click',function(){
 
     offsetAtual = offsetAtual + limiteAtual;
 
-    limiteAtual =  5
+    limiteAtual =  6
 
     carregar_galeria();
 
@@ -127,7 +127,7 @@ function exibirNoTopo(pokemon){
 
     {chave: "nome:", valor: pokemon.name},
     {chave: "ID:", valor: pokemon.id},
-    {chave: "tipo_elemental:", valor: tipo_pokemon},
+    {chave: "tipo elemental:", valor: tipo_pokemon},
     {chave: "altura:", valor: (pokemon.height / 10) + " m"} ,
     {chave: "peso:", valor: pokemon.weight / 10 + "Kg"} ,
     {chave: "habilidades:", valor: habilidade_pokemon}
